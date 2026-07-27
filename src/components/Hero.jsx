@@ -4,6 +4,7 @@ import { FiArrowDown, FiDownload, FiGithub, FiLinkedin } from 'react-icons/fi'
 import './Hero.css'
 
 const roles = ['Web Developer', 'Web Designer', 'Mobile Developer', 'UI/UX Designer', 'Full-Stack Developer']
+const publicUrl = path => `${import.meta.env.BASE_URL}${path}`
 
 export default function Hero() {
   const heroRef    = useRef(null)
@@ -82,7 +83,7 @@ export default function Hero() {
                   <span>View My Work</span>
                   <FiArrowDown />
                 </button>
-                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <a href={publicUrl('resume.pdf')} target="_blank" rel="noopener noreferrer" className="btn-secondary">
                   <FiDownload />
                   Download CV
                 </a>
@@ -105,7 +106,7 @@ export default function Hero() {
               {/* Framed studio portrait */}
               <div className="hero-portrait">
                 <img
-                  src="/hero-portrait.webp"
+                  src={publicUrl('hero-portrait.webp')}
                   alt="Hyacinth Cyril Enog"
                   className="hero-profile-img"
                   draggable={false}

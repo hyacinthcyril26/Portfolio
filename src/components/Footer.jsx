@@ -35,7 +35,7 @@ export default function Footer() {
           <div className="footer-grid">
             <div className="footer-brand">
               <div className="footer-logo">
-                <img src="/logo.jpg" alt="Logo" className="footer-logo-img" />
+                <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Logo" className="footer-logo-img" />
                 <span className="footer-logo-text">HYA</span>
               </div>
               <p className="footer-tagline">

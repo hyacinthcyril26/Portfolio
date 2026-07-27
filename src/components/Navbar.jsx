@@ -47,7 +47,7 @@ export default function Navbar() {
     <nav ref={navRef} className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         <a href="#" className="nav-logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
-          <img src="/logo.jpg" alt="Logo" className="logo-img" />
+          <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Logo" className="logo-img" />
           <span className="logo-text">HYA</span>
         </a>
 

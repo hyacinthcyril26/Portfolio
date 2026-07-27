@@ -72,7 +72,7 @@ export default function About() {
           <div ref={leftRef} className="about-left">
             <div className="about-img-wrap">
               <div className="about-img-bg" />
-              <img src="/logo.jpg" alt="Hyacinth Cyril Enog" className="about-img" />
+              <img src={`${import.meta.env.BASE_URL}logo.jpg`} alt="Hyacinth Cyril Enog" className="about-img" />
               <div className="about-experience-tag">
                 <span className="exp-years">3+</span>
                 <span className="exp-label">Years of<br/>Experience</span>

@@ -7,7 +7,7 @@ import './Projects.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const BASE = '/projects'
+const BASE = `${import.meta.env.BASE_URL}projects`
 const enc = file => encodeURIComponent(file)
 const isVideoFile = file => file.toLowerCase().endsWith('.mp4')
 
