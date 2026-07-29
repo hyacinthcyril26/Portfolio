@@ -83,7 +83,7 @@ export default function Hero() {
                   <span>View My Work</span>
                   <FiArrowDown />
                 </button>
-                <a href={publicUrl('resume.pdf')} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <a href={publicUrl('resume.pdf')} download className="btn-secondary">
                   <FiDownload />
                   Download CV
                 </a>
