@@ -66,7 +66,8 @@ export default function Navbar() {
           <li>
             <a
               href={`${import.meta.env.BASE_URL}resume.pdf`}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               className="nav-resume-btn"
             >
               Resume

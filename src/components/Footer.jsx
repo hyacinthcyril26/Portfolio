@@ -95,7 +95,7 @@ export default function Footer() {
             <p>
               &copy; {new Date().getFullYear()} Hyacinth Cyril Enog.
             </p>
-            <a href={`${import.meta.env.BASE_URL}resume.pdf`} download className="footer-resume-link">
+            <a href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noopener noreferrer" className="footer-resume-link">
               View Resume
             </a>
           </div>
