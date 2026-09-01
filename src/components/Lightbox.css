@@ -410,6 +410,65 @@ video.lb-media {
   pointer-events: none;
 }
 
+/* ── Item caption (folders where each file is its own project) ── */
+.lb-caption {
+  flex-shrink: 0;
+  padding: 4px 22px 0;
+  text-align: center;
+  animation: lb-caption-in 0.32s ease-out;
+}
+
+@keyframes lb-caption-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.lb-caption-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.lb-caption-tech {
+  margin: 4px 0 0;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--accent, #a855f7);
+}
+
+.lb-caption-tag,
+.lb-grid-tag {
+  font-family: inherit;
+  font-style: normal;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent, #a855f7);
+  background: var(--accent-soft, rgba(168,85,247,0.14));
+  border: 1px solid var(--accent-mid, rgba(168,85,247,0.4));
+  border-radius: 6px;
+  padding: 3px 7px;
+  white-space: nowrap;
+}
+
+.lb-grid-tag {
+  display: block;
+  width: fit-content;
+  margin: 4px auto 0;
+  font-size: 0.55rem;
+  padding: 2px 6px;
+  background: rgba(3, 0, 10, 0.55);
+}
+
 /* ── Hint ── */
 .lb-hint {
   margin: 0;
@@ -520,6 +579,27 @@ video.lb-media {
   pointer-events: none;
 }
 
+.lb-grid-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 8px 6px 8px;
+  font-size: 0.63rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #f1f5f9;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(3,0,10,0) 0%, rgba(3,0,10,0.88) 55%);
+  pointer-events: none;
+}
+
+/* The number badge sits in the same corner as the label gradient, so lift it. */
+.lb-grid-item:has(.lb-grid-label) .lb-grid-num {
+  bottom: auto;
+  top: 8px;
+}
+
 .lb-grid-badge {
   position: absolute;
   top: 8px;
@@ -571,6 +651,7 @@ video.lb-media {
   .lb-thumbs { padding: 10px 18px; }
   .lb-thumb { width: 58px; height: 58px; }
   .lb-hint { padding: 0 18px 10px; }
+  .lb-caption { padding: 2px 18px 0; }
 }
 
 @media (max-height: 620px) {
@@ -580,6 +661,7 @@ video.lb-media {
   .lb-thumb { width: 44px; height: 44px; border-radius: 9px; }
   .lb-thumb-num { display: none; }
   .lb-hint { display: none; }
+  .lb-caption-tech { display: none; }
 }
 
 @media (max-width: 480px) {

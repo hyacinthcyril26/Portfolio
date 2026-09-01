@@ -67,8 +67,10 @@ export default function Lightbox({ project, onClose }) {
   const thumbsRef  = useRef(null)
 
   const pages = project.files
+  const items = project.items
   const total = pages.length
   const page  = pages[current]
+  const item  = items?.[current]
   const isVid = isVideo(page)
   const isPortrait = !isVid && portraitMap[current]
 
@@ -225,6 +227,12 @@ export default function Lightbox({ project, onClose }) {
                   <img src={f} alt="" className="lb-grid-img" loading="lazy" draggable={false} />
                 )}
                 <span className="lb-grid-num">{String(i + 1).padStart(2, '0')}</span>
+                {items?.[i] && (
+                  <span className="lb-grid-label">
+                    {items[i].title}
+                    {items[i].concept && <em className="lb-grid-tag">Concept</em>}
+                  </span>
+                )}
                 {i === current && <span className="lb-grid-badge">Current</span>}
               </button>
             ))}
@@ -282,6 +290,17 @@ export default function Lightbox({ project, onClose }) {
                 </button>
               )}
             </div>
+
+            {/* ── ITEM CAPTION ── */}
+            {item && (
+              <div className="lb-caption" key={`cap-${current}`}>
+                <h4 className="lb-caption-title">
+                  {item.title}
+                  {item.concept && <span className="lb-caption-tag">Concept</span>}
+                </h4>
+                <p className="lb-caption-tech">{item.tech}</p>
+              </div>
+            )}
 
             {/* ── THUMBNAIL STRIP ── */}
             {total > 1 && (

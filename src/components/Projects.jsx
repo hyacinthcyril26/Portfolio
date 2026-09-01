@@ -15,7 +15,65 @@ const getPreviewWindow = (files, startIndex, count = 3) => (
   Array.from({ length: Math.min(count, files.length) }, (_, offset) => files[(startIndex + offset) % files.length])
 )
 
-const categories = [
+/* Design-only pieces: shown as concepts, not delivered client work. */
+const CONCEPT = true
+
+/* Development folders: each file is a distinct project, so `items` carries the
+   per-screenshot title and stack that the lightbox renders as a caption. */
+const devItems = (folder, entries) => entries.map(([file, title, tech, concept]) => ({
+  file: `${BASE}/${folder}/${enc(file)}`,
+  title,
+  tech,
+  concept: Boolean(concept),
+}))
+
+const rawCategories = [
+  {
+    id: 'web-projects',
+    title: 'Web Projects',
+    desc: 'Management systems, portals, and booking platforms built end to end for real operations.',
+    color: '#3b82f6',
+    type: 'image',
+    kicker: 'Development vault',
+    unit: 'projects',
+    items: devItems('web', [
+      ['hakot.png', 'HAKOT: Waste Collection Management', 'Laravel · Flutter · MySQL · OpenLayers · Firebase'],
+      ['quarry.png', 'Quarry Management System', 'Laravel · React · MySQL'],
+      ['printing-press.png', 'Printing Press Management System', 'Laravel · React · MySQL'],
+      ['um-research-portal.png', 'UM Research Portal', 'PHP · MySQL · HTML · CSS · JavaScript'],
+      ['remittance.png', 'Remittance Management System', 'Quasar · Vue.js · JavaScript'],
+      ['payroll.png', 'Payroll System', 'Laravel · PHP · React · MySQL'],
+      ['letecia-farm.jpg', 'Letecia Farm Staycation', 'React · Laravel · MySQL · Firebase'],
+    ]),
+  },
+  {
+    id: 'mobile-projects',
+    title: 'Mobile App Projects',
+    desc: 'Mobile-first apps for service booking, marketplace ordering, and workforce attendance.',
+    color: '#10b981',
+    type: 'image',
+    kicker: 'Development vault',
+    unit: 'projects',
+    items: devItems('mobile', [
+      ['laundry-express.png', 'Laundry Express', 'React Native · Flutter · Firebase · Supabase'],
+      ['timekeep.png', 'TimeKeep — Attendance Monitoring', 'Flutter · Firebase · Laravel API', CONCEPT],
+      ['animart.png', 'AniMart — Farm Produce Marketplace', 'React Native · Supabase · Expo', CONCEPT],
+    ]),
+  },
+  {
+    id: 'desktop-projects',
+    title: 'Desktop App Projects',
+    desc: 'Native desktop software for point-of-sale, clinic records, and warehouse inventory control.',
+    color: '#f43f5e',
+    type: 'image',
+    kicker: 'Development vault',
+    unit: 'projects',
+    items: devItems('desktop', [
+      ['fusionserve-pos.png', 'FusionServe POS', 'Flutter · SQLite'],
+      ['meditrack.png', 'MediTrack — Clinic Records', 'Java · JavaFX · MySQL', CONCEPT],
+      ['stockpilot.png', 'StockPilot — Warehouse Inventory', 'Python · PyQt6 · PostgreSQL', CONCEPT],
+    ]),
+  },
   {
     id: 'wireframes',
     title: 'Wireframes',
@@ -76,7 +134,30 @@ const categories = [
   },
 ]
 
+const categories = rawCategories.map(category => ({
+  ...category,
+  files: category.files ?? category.items.map(item => item.file),
+}))
+
 const Icons = {
+  'web-projects': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18" />
+    </svg>
+  ),
+  'mobile-projects': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round">
+      <rect x="6" y="2" width="12" height="20" rx="2.5" />
+      <path d="M10.5 18h3" />
+    </svg>
+  ),
+  'desktop-projects': (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round">
+      <rect x="2" y="4" width="20" height="12" rx="2" />
+      <path d="M8 20h8M12 16v4" />
+    </svg>
+  ),
   wireframes: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round">
       <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -186,8 +267,10 @@ function FolderCard({ category, index, onOpen }) {
     const papers = papersRef.current?.children
     if (!papers?.length) return
 
+    const slotOffset = papers.length === 1 ? 1 : 0
+
     Array.from(papers).forEach((paper, paperIndex) => {
-      const state = config[paperIndex] ?? config[1]
+      const state = config[paperIndex + slotOffset] ?? config[1]
       gsap.to(paper, {
         rotation: state.rotation,
         x: state.x,
@@ -204,8 +287,10 @@ function FolderCard({ category, index, onOpen }) {
   useEffect(() => {
     const papers = papersRef.current?.children
     if (papers?.length) {
+      const slotOffset = papers.length === 1 ? 1 : 0
+
       Array.from(papers).forEach((paper, paperIndex) => {
-        const state = REST_PAPERS[paperIndex] ?? REST_PAPERS[1]
+        const state = REST_PAPERS[paperIndex + slotOffset] ?? REST_PAPERS[1]
         gsap.set(paper, {
           rotation: state.rotation,
           x: state.x,
@@ -289,8 +374,9 @@ function FolderCard({ category, index, onOpen }) {
   )
   const currentPreview = previews[0]
   const paperSlots = previews.map((_, slotIndex) => slotIndex)
-  const countLabel = `${String(category.files.length).padStart(2, '0')} curated pieces`
-  const typeLabel = category.type === 'video' ? 'Motion vault' : 'Design vault'
+  const unit = category.unit ?? 'curated pieces'
+  const countLabel = `${String(category.files.length).padStart(2, '0')} ${category.files.length === 1 ? unit.replace(/s$/, '') : unit}`
+  const typeLabel = category.kicker ?? (category.type === 'video' ? 'Motion vault' : 'Design vault')
 
   return (
     <div
@@ -466,7 +552,8 @@ export default function Projects() {
           <span className="section-label">Portfolio</span>
           <h2 className="section-title">My <span>Work</span></h2>
           <p className="section-subtitle">
-            A curated collection of visual work across wireframes, campaigns, reels, ad creatives, and newsletter design.
+            A curated collection of development builds &mdash; web, mobile, and desktop &mdash; alongside visual work across
+            wireframes, campaigns, reels, ad creatives, and newsletter design.
           </p>
         </div>
 
