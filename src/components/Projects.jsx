@@ -78,9 +78,8 @@ const rawCategories = [
     files: [
       'Desktop - 15.png', 'Desktop - 3.png', 'Desktop - 4.png',
       'Final (1).png', 'final.png', 'Frame.png',
-      'home (1).png', 'home (2).png', 'home.png',
-      'Homepage (1).png', 'HOMEPAGE FINAL.png', 'Homepage.png',
-      'screencapture-legacyandcocollective-2026-07-05-09_39_55.png', 'WIREFRAME.png',
+      'home (2).png', 'home.png',
+      'HOMEPAGE FINAL.png', 'Homepage.png', 'WIREFRAME.png',
     ].map(file => `${BASE}/wireframe/${enc(file)}`),
   },
   {

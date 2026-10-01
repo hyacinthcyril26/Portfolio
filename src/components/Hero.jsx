@@ -133,10 +133,6 @@ export default function Hero() {
 
         </div>
 
-        <button className="scroll-indicator" onClick={scrollDown} aria-label="Scroll down">
-          <div className="scroll-mouse"><div className="scroll-dot" /></div>
-          <span>Scroll Down</span>
-        </button>
       </div>
     </section>
   )
