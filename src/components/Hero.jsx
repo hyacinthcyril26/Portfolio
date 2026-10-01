@@ -106,9 +106,12 @@ export default function Hero() {
               {/* Framed studio portrait */}
               <div className="hero-portrait">
                 <img
-                  src={publicUrl('hero-portrait.webp')}
+                  src={publicUrl('hero-graduation.webp')}
                   alt="Hyacinth Cyril Enog"
                   className="hero-profile-img"
+                  width={1000}
+                  height={1502}
+                  fetchPriority="high"
                   draggable={false}
                 />
                 <span className="portrait-grade" />
